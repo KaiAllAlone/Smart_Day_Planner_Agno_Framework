@@ -1,1 +1,7 @@
 Agno/ 
+.env
+test.py
+credentials.json
+token.json
+tmp
+
