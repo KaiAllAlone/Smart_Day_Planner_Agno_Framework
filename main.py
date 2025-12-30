@@ -16,12 +16,12 @@ import os
 
 load_dotenv()
 groq_api_key = os.getenv("GROQ_API_KEY")
-groq_base_url = os.getenv("GROQ_BASE_URL")
+groq_base_url = "https://api.groq.com/openai/v1"
 db = SqliteDb(db_file="tmp/data.db")
-
+model="llama-3.3-70b-versatile"
 
 email_agent = Agent(
-    model=Groq(id="qwen/qwen3-32b", api_key=groq_api_key),
+    model=Groq(id=model, api_key=groq_api_key),
     markdown=True,
     tools=[GmailTools(credentials_path="credentials.json", port=8090)],
     description="You are a Gmail reading specialist that can search and read emails.",
@@ -40,7 +40,7 @@ email_agent = Agent(
 
 
 calendar_agent = Agent(
-    model=Groq(id="qwen/qwen3-32b", api_key=groq_api_key),
+    model=Groq(id=model, api_key=groq_api_key),
     tools=[
         GoogleCalendarTools(
             credentials_path="credentials.json",
@@ -88,12 +88,12 @@ team = Team(
 
 
 prompt = "Hello"
-print("🧠 Smart Scheduler Assistant is running. Type 'exit' to quit.\n")
+print("Smart Scheduler Assistant is running. Type 'exit' to quit.\n")
 user_input = prompt
 while True:
 
     if user_input.lower() in ["exit", "quit"]:
-        print("Goodbye 👋")
+        print("Goodbye")
         break
 
     response = team.print_response(user_input)
